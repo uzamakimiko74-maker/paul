@@ -20,11 +20,11 @@ const dir = '/home/user/paul/ragnarok/egypt_thumb', nm = '/home/user/paul/ragnar
   });
   await p.goto('http://local.test/'); await p.waitForTimeout(2500);
   await p.evaluate(() => window.BG_READY);
-  await p.addStyleTag({ content: '#overlay,#top{display:none!important}' });
+  await p.addStyleTag({ content: '#overlay,#top{display:none!important}' + (process.env.CLEAN ? '#hud{display:none!important}' : '') });
   for (const t of process.argv.slice(2).map(Number)) {
     await p.evaluate(t => { WORDS.length = 0; playing = false; update(t); renderer.render(scene, cam); paintHud(t); }, t);
     await p.waitForTimeout(400);
-    await p.locator('#stage').screenshot({ path: `/home/user/paul/ragnarok/egypt_thumb/shot_${String(Math.round(t * 10)).padStart(4, '0')}.png` });
+    await p.locator('#stage').screenshot({ path: `/home/user/paul/ragnarok/egypt_thumb/${process.env.PFX||'shot'}_${String(Math.round(t * 10)).padStart(4, '0')}.png` });
   }
   console.log('errors', JSON.stringify(errs)); await b.close();
 })();
