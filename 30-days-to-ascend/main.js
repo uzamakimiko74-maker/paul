@@ -34,7 +34,7 @@ const CAPS = [
   [53.4, 56.5, 'But Paul has a plan.\nFrame is everything.'],
   [56.7, 59.9, 'At least his frame is excellent.\nIt is solid oak.'],
   [60.2, 63.2, 'Day two: pick his weapon.'],
-  [63.4, 66.4, 'Comment MEW or MOG.\nThe winner trains first.'],
+  [63.4, 66.4, 'Comment MEW or MOG.\nWinner trains first.'],
   [66.6, 69.6, 'Day two starts soon.\nThirty days to ascend.']
 ];
 // the "silence" card for the mewing band-stop is a gag: the card itself is blank, then a lone title
