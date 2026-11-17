@@ -28,3 +28,6 @@ artifact/poster.jpg
 web/pagetest.js
 thumb_v_bg.jpg
 web/thumb_v_bg.jpg
+egypt_thumb/*.html
+egypt_thumb/*.jpg
+egypt_thumb/shot_*.png
