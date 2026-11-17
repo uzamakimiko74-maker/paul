@@ -170,7 +170,7 @@ for e in EV:
 # ---------- story moments ----------
 def sentstart(sec, k, f=0):
     for s in TL['sent']:
-        if s['sec'] == sec and s['k'] == k: return s['a'] + (s['b'] - s['a']) * f
+        if s['sec'] == sec and str(s['id']) == str(k): return s['a'] + (s['b'] - s['a']) * f
 # Gjallarhorn
 t = sentstart(4, 11) + .4; put(horn(110, 3.4), t, .9); put(horn(165, 3.2), t + .15, .5); put(horn(220, 3.0), t + .3, .3)
 # roosters and Garm

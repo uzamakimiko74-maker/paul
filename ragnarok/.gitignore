@@ -14,3 +14,9 @@ work/*.mp3
 work/*.log
 work/*.out
 out/*.mp4
+audio2/
+sheet*.jpg
+test*/
+work/*.log
+work/*.out
+work/__pycache__/
