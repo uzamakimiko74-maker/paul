@@ -47,7 +47,8 @@ aside h2{margin:0 0 10px;font:600 18px/1.2 var(--display);color:var(--ice)}
 .dl:hover{filter:brightness(1.06)}
 .dl:disabled{opacity:.65;cursor:default}
 .dl:focus-visible{outline:3px solid var(--ice);outline-offset:2px}
-.dlnote{color:var(--muted);font-size:13px;flex:1;min-width:200px}
+.dlnote{color:var(--muted);font-size:13px;flex-basis:100%}
+.dl small{font:500 12px/1 var(--body);opacity:.8}
 .dlrow[hidden]{display:none}
 .foot{margin-top:26px;color:var(--muted);font-size:13px;max-width:70ch}
 </style>
@@ -72,7 +73,7 @@ aside h2{margin:0 0 10px;font:600 18px/1.2 var(--display);color:var(--ice)}
         <button class="btn" id="mute" aria-label="Mute"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9.5v5h4l5 4v-13l-5 4z" fill="currentColor"/><path id="wave" d="M16.5 8.5a5 5 0 0 1 0 7M19 6a8.5 8.5 0 0 1 0 12"/></svg></button>
         <button class="btn" id="full" aria-label="Full screen"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg></button>
       </div>
-      <div class="dlrow" id="dlrow"><button class="dl" id="dl" type="button"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11M7 11l5 5 5-5M5 20h14"/></svg><span id="dlLabel">Download video</span></button><span class="dlnote">Saves three MP4 files, one per part, because shared files are limited to 15 MB. Play them in order.</span></div>
+      <div class="dlrow" id="dlrow"><button class="dl" type="button" data-part="0"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11M7 11l5 5 5-5M5 20h14"/></svg><span class="lab">Download part 1</span> <small>0:00 to 5:04</small></button><button class="dl" type="button" data-part="1"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11M7 11l5 5 5-5M5 20h14"/></svg><span class="lab">Download part 2</span> <small>5:04 to 8:57</small></button><button class="dl" type="button" data-part="2"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11M7 11l5 5 5-5M5 20h14"/></svg><span class="lab">Download part 3</span> <small>8:57 to 12:05</small></button><span class="dlnote">The video is saved in three files because shared files are limited to 15 MB. One button per part, so each click saves one file. Play them in order.</span></div>
       <p class="note" id="note">Plays in three parts that continue on their own. Use the timeline or the chapters to jump anywhere.</p>
     </main>
 
@@ -148,23 +149,22 @@ CHAPTERS.forEach(([name,t],i)=>{const li=document.createElement('li');const b=do
   b.addEventListener('click',()=>seekGlobal(t,true));li.appendChild(b);ol.appendChild(li)});
 setPart(0,0);vids[0].poster='poster.jpg';preloadNext();draw();sync();
 
-/* download: fetch each published part and hand it to the viewer's downloads capability */
-const dlBtn=$('dl'),dlLabel=$('dlLabel');let dlBusy=false;
+/* download: one button per part; each click fetches that published part and hands it to the viewer's downloads capability */
+let dlBusy=false;
 (async()=>{let ok=null;try{ok=window.claude&&await window.claude.use('downloads')}catch(e){}if(!ok)$('dlrow').hidden=true})();
-dlBtn.addEventListener('click',async()=>{
-  if(dlBusy)return;dlBusy=true;dlBtn.disabled=true;let msg='Download video';
+document.querySelectorAll('.dl').forEach(btn=>btn.addEventListener('click',async()=>{
+  if(dlBusy)return;const i=+btn.dataset.part,lab=btn.querySelector('.lab'),orig='Download part '+(i+1);
+  dlBusy=true;document.querySelectorAll('.dl').forEach(b=>b.disabled=true);let msg=orig;
   try{
     if(playing||want)stop();
+    lab.textContent='Preparing…';
     const dl=await window.claude.use('downloads');if(!dl)throw Object.assign(new Error('unavailable'),{code:'unavailable'});
-    for(let i=0;i<PARTS.length;i++){
-      dlLabel.textContent='Preparing part '+(i+1)+' of '+PARTS.length+'…';
-      const r=await fetch(PARTS[i].src);if(!r.ok)throw new Error('missing');
-      const blob=new Blob([await r.arrayBuffer()],{type:'video/mp4'});
-      await dl.save({filename:'Ragnarok-part-'+(i+1)+'-of-'+PARTS.length+'.mp4',data:blob});
-    }
-    msg='Saved. Download again';
-  }catch(e){if(e&&e.code==='declined')msg='Download video';else msg='Could not save, try again'}
-  dlLabel.textContent=msg;if(msg!=='Download video')setTimeout(()=>{dlLabel.textContent='Download video'},4000);
-  dlBtn.disabled=false;dlBusy=false;
-});
+    const r=await fetch(PARTS[i].src);if(!r.ok)throw new Error('missing');
+    const blob=new Blob([await r.arrayBuffer()],{type:'video/mp4'});
+    await dl.save({filename:'Ragnarok-part-'+(i+1)+'-of-'+PARTS.length+'.mp4',data:blob});
+    msg='Saved part '+(i+1);
+  }catch(e){msg=(e&&e.code==='declined')?orig:'Could not save, try again'}
+  lab.textContent=msg;if(msg!==orig)setTimeout(()=>{lab.textContent=orig},4000);
+  document.querySelectorAll('.dl').forEach(b=>b.disabled=false);dlBusy=false;
+}));
 </script>
