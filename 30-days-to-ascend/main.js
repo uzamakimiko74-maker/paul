@@ -15,9 +15,9 @@ for (const f of ['40px Shrikhand', '40px Limelight', '38px "IM Fell English SC"'
 // ————— timeline —————
 const SHOTS = [[0, 4, 'title'], [4, 10, 'tier'], [10, 20, 'mirror'], [20, 30, 'mew'], [30, 40, 'jaw'], [40, 50, 'height'], [50, 60, 'psl'], [60, 70, 'vote']];
 const CAPS = [
-  [4.2, 7.0, 'This is Gus.\nHe has thirty days.'],
-  [7.2, 9.9, 'The group chat drops its Tier List.\nGus is Rat Tier.'],
-  [10.2, 13.0, 'Day one. Gus rates his own face.'],
+  [4.2, 7.0, 'This is Paul.\nHe has thirty days.'],
+  [7.2, 9.9, 'The group chat drops its Tier List.\nPaul is Rat Tier.'],
+  [10.2, 13.0, 'Day one. Paul rates his own face.'],
   [13.2, 16.0, 'The mirror says three out of ten.'],
   [16.2, 19.8, 'Then it asks to be\nleft out of this.'],
   [20.2, 22.9, 'Next: mewing.\nTongue on the roof of the mouth.'],
@@ -26,10 +26,10 @@ const CAPS = [
   [33.3, 36.4, 'Jawline update:\nstill a loaf of bread.'],
   [36.7, 39.9, 'Hunter eyes! Canthal tilt: plus twelve.\nVision: minus twelve.'],
   [40.2, 43.3, 'Heightmaxxing: platform shoes.\nPlus four inches.'],
-  [43.6, 46.6, 'Gus is now taller\nthan most doorframes.'],
+  [43.6, 46.6, 'Paul is now taller\nthan most doorframes.'],
   [46.9, 49.9, 'Mogged by an actual doorframe.'],
   [50.2, 53.2, 'Day one results:\nPSL zero point zero.'],
-  [53.4, 56.5, 'But Gus has a plan.\nFrame is everything.'],
+  [53.4, 56.5, 'But Paul has a plan.\nFrame is everything.'],
   [56.7, 59.9, 'At least his frame is excellent.\nIt is solid oak.'],
   [60.2, 63.2, 'Day two: pick his weapon.'],
   [63.4, 66.4, 'Comment MEW or MOG.\nThe winner trains first.'],
@@ -83,7 +83,7 @@ function star(x, y, r, rot = 0) { const p = []; for (let i = 0; i < 8; i++) { co
 function puff(x, y, u, n = 5, sz = 26) { for (let i = 0; i < n; i++) { const a = i / n * TAU + .5, d = u * 90; T.shape(T.ell(x + Math.cos(a) * d, y + Math.sin(a) * d * .7, sz * (.6 + u * .6), sz * (.6 + u * .6), 12), { fill: P.pale, lw: 4, alpha: 1 - u * .8 }); } }
 function walk(t, spd = 1) { const ph = t / BEAT * Math.PI * spd; return { L: [-38 + 26 * Math.sin(ph), -Math.max(0, Math.cos(ph)) * 22], R: [38 - 26 * Math.sin(ph), -Math.max(0, -Math.cos(ph)) * 22], bob: -Math.abs(Math.sin(ph)) * 9 }; }
 
-// ————— Gus: a lumpy potato in a bow tie; the whole object is the body —————
+// ————— Paul: a lumpy potato in a bow tie; the whole object is the body —————
 const BODY = [[-90, -70], [-108, -120], [-104, -190], [-80, -250], [-30, -290], [34, -292], [82, -255], [106, -195], [108, -120], [90, -72], [40, -56], [-40, -58]];
 function gus(p) {
   const k = p.k || 1, t = p.t || 0, still = !!p.still;
@@ -135,7 +135,7 @@ function tierBoard(x, y, w, h, t, flash) {
     if (i === 0) { T.shape(T.ell(x + w - 70, ry + 12, 20, 6, 12), { fill: P.white, lw: 4 }); }
   });
   const ry = y + 70 + 3 * 70;
-  if (flash > 0) {   // Gus's portrait token pops into the RAT row
+  if (flash > 0) {   // Paul's portrait token pops into the RAT row
     const s = back(flash) * 1;
     T.push(); T.translate(x + w - 70, ry + 29); T.scale(s); T.shape(T.ell(0, 0, 26, 26, 16), { fill: P.pale, lw: 5 }); pieEye(-9, -4, 6, 8, { type: 'wide' }); pieEye(9, -4, 6, 8, { type: 'wide' }); T.stroke([[-10, 12], [0, 8], [10, 12]], 4); T.pop();
   }
@@ -187,7 +187,7 @@ function tier(t) {
 }
 function mirror(t) {
   const u = t - 10; cam(1 + .02 * seg(u, 0, 10), 540, 405); drawBG('bath');
-  // Gus flexes on the beat, then slumps
+  // Paul flexes on the beat, then slumps
   const beat = Math.floor(u / 1.0) % 2, shocked = u > 3.3;
   const mx = u < 7.5 ? 780 : 780 + 60 * (u - 7.5) ** 2 * 1.4;
   const mEyes = u < 2 ? 'open' : (u < 6.2 ? 'squeeze' : 'shut'), mMouth = u < 2 ? 'smile' : (u < 6.2 ? 'pucker' : 'flat');
@@ -268,7 +268,7 @@ function psl(t) {
   let val = 0; if (u > 1 && u < 2) val = .6 * ss((u - 1)); else if (u >= 2 && u < 3) val = .6 * (1 - ss(u - 2)); if (u >= 2.2 && u < 3.1) val = Math.max(0, .6 * (1 - (u - 2) * 1.2)) + Math.sin(u * 40) * .05 * Math.exp(-(u - 2.2) * 3);
   const a = Math.PI + clamp(val, 0, 10) / 10 * Math.PI; hose([cx, cy], [cx + Math.cos(a) * (R - 30), cy + Math.sin(a) * (R - 30)], 0, 12); T.shape(T.ell(cx, cy, 20, 20, 14), { fill: P.ink, lw: 4 });
   window.__psl = u > 1 && u < 2.4 ? '0.1' : '0.0';
-  // Gus holds a picture frame around his face
+  // Paul holds a picture frame around his face
   const proud = u > 5.5;
   gus({ x: 540, y: GY + 20, k: 1.12, t, still: false, eyes: { type: u > 2 && u < 5 ? 'wide' : 'open', lx: u < 5 ? -.4 : 0 }, mouth: { type: u < 2 ? 'smile' : (u < 5 ? 'wavy' : 'beam') }, brows: u < 2 ? 'up' : (u < 5 ? 'sad' : 'up'), sweat: u > 2 && u < 5 ? [[-80, -250, 7]] : null,
     armL: u > 4.2 ? { x: -92, y: -112, hand: 'grab', bend: 20 } : { x: -128, y: -92 }, armR: u > 4.2 ? { x: 92, y: -112, hand: 'grab', bend: -20 } : { x: 128, y: -92 },
@@ -288,7 +288,7 @@ function vote(t) {
   gus({ x: 810, y: GY, k: .92, t: t + .25, eyes: { type: 'squeeze', side: 1 }, mouth: { type: 'grin' }, brows: 'angry', armL: { x: -150, y: -230, hand: 'fist', bend: 30 }, armR: { x: 150, y: -230, hand: 'fist', bend: -30 } });
   const bs = u > 5.4 ? back(seg(u, 5.4, 5.9)) : 0;
   if (bs > 0) { T.push(); T.translate(540, 410); T.rotate(-.04 + .02 * Math.sin(u * 4)); T.scale(bs); T.shape(T.rr(-330, -50, 660, 100, 16), { fill: P.ink, lw: 6 }); fatTitle(sg, '', 0, 0, 10); T.pop(); fatBanner(u, bs); }
-  // iris out on Gus (right), pulled shut by a glove
+  // iris out on Paul (right), pulled shut by a glove
   if (u > 8.3) {
     const r = lerp(760, 0, eo(seg(u, 8.3, 9.7))), cx = 810, cy = 520;
     sg.save(); sg.fillStyle = '#000'; sg.beginPath(); sg.rect(0, 0, SW, SH); sg.arc(cx, cy, Math.max(r, .01), 0, TAU, true); sg.fill('evenodd'); sg.restore();

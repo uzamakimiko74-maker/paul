@@ -9,7 +9,7 @@ C. **Singalong** — bouncing ball over a "looksmaxxing anthem", set acts out ea
 **Choice: C+A hybrid** — bouncing-ball singalong lyrics ARE the caption cards; the HUD counter ticks as stations pass. The singalong gives sound-first rhythm and makes every joke a sung line.
 
 ## Logline
-Gus, a lumpy potato in a bow tie, has 30 days before the group-chat Tier List drops ("Rat Tier" awaits). He tries mewing, jaw-trainers, squinty hunter eyes and platform shoes — and the PSL meter doesn't move. Viewers vote for Day 2.
+Paul, a lumpy potato in a bow tie, has 30 days before the group-chat Tier List drops ("Rat Tier" awaits). He tries mewing, jaw-trainers, squinty hunter eyes and platform shoes — and the PSL meter doesn't move. Viewers vote for Day 2.
 
 ## Arc
 Setup (0–10s) title + deadline text → Turn (10–50s) four stations, each a gag, meter stuck at 0.0 → End (50–70s) ironic hope, vote card MEW vs MOG, "DAY 2 STARTS" iris-out.
@@ -19,7 +19,7 @@ Learn: early-sound-era "whole world dances on the beat", bouncing-ball cards. Do
 
 ## Beats (seconds)
 0–4 title "30 DAYS TO ASCEND" (Shrikhand), HUD: DAYS LEFT 30 / PSL 0.0
-4–10 Gus, text: the group chat tier list drops in 30 days — he is "Rat Tier"
+4–10 Paul, text: the group chat tier list drops in 30 days — he is "Rat Tier"
 10–20 Station 1 MIRROR: rates himself, mirror shatters ("3 out of 10 — it's the mirror's fault")
 20–30 Station 2 MEWING: tongue on roof of mouth, doesn't speak for 3 days, silence gag (band stop)
 30–40 Station 3 JAWLINE: jaw-trainer ball chewed, jaw "pops" into a hinge; still soft
