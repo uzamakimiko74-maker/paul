@@ -1,0 +1,706 @@
+{
+"1": [
+{
+"id": "0",
+"text": "Most myths end with the hero winning.",
+"para": 0
+},
+{
+"id": "1",
+"text": "The Norse myths tell you almost from the start exactly how everybody dies.",
+"para": 1
+},
+{
+"id": "2",
+"text": "Odin knows a wolf will swallow him whole.",
+"para": 0
+},
+{
+"id": "3",
+"text": "Thor knows he'll win his greatest fight and die nine steps later, and they fight anyway.",
+"para": 1
+},
+{
+"id": "4",
+"text": "This is Ragnarök, a three-year winter, a wolf that eats the sun, a ship built from the fingernails of the dead, a battle that kills almost every god, and a fire that burns the world.",
+"para": 0
+},
+{
+"id": "5",
+"text": "And then the part people forget, the world comes back.",
+"para": 1
+},
+{
+"id": "6",
+"text": "Here's exactly what happens in order.",
+"para": 1
+}
+],
+"2": [
+{
+"id": "0",
+"text": "Almost everything comes from two Icelandic books from the 1200s: the Poetic Edda, especially a poem called Völuspá, where Odin raises a dead seeress and demands to know the future, and the Prose Edda by Snorri Sturluson, who retells it as a conversation.",
+"para": 0
+},
+{
+"id": "a1",
+"text": "The oldest copy of the Poetic Edda is a calfskin manuscript called the Codex Regius, written around twelve seventy.",
+"para": 0
+},
+{
+"id": "a2",
+"text": "In Völuspá, the seeress tells Odin what she sees coming, and she keeps asking him one question, like a drumbeat: do you understand yet?",
+"para": 0
+},
+{
+"id": "a3",
+"text": "Snorri was no monk. He was a powerful Icelandic chieftain and poet, and he wrote his Edda as a handbook for poets who wanted to understand the old stories.",
+"para": 1
+},
+{
+"id": "1",
+"text": "One warning: both were written down by Christians centuries after the old religion faded, so historians debate how much of the ending is purely Norse.",
+"para": 0
+},
+{
+"id": "2",
+"text": "I'll flag where the sources disagree.",
+"para": 0
+},
+{
+"id": "a4",
+"text": "The word Ragnarök itself means the fate of the gods, though some manuscripts say the twilight of the gods, and that small difference tells you how messy these sources are.",
+"para": 1
+}
+],
+"3": [
+{
+"id": "0",
+"text": "The death of Baldur.",
+"para": 0
+},
+{
+"id": "b1",
+"text": "Ragnarök does not begin with a battle. It begins with a funeral.",
+"para": 1
+},
+{
+"id": "1",
+"text": "It starts with Baldur, Odin's radiant, beloved son.",
+"para": 0
+},
+{
+"id": "2",
+"text": "After dreaming of his own death, his mother, Frigg, makes everything in the world swear never to harm him.",
+"para": 0
+},
+{
+"id": "b2",
+"text": "Fire swears, and water, and iron, and every metal. Stones swear, and trees, and diseases, and every beast, bird, and snake.",
+"para": 1
+},
+{
+"id": "3",
+"text": "The gods turn it into a game, throwing weapons and watching them bounce off.",
+"para": 1
+},
+{
+"id": "4",
+"text": "But Loki learns Frigg skipped one plant, mistletoe, too young to bother with.",
+"para": 0
+},
+{
+"id": "5",
+"text": "He makes a dart from it, hands it to Baldur's blind brother, Höðr, and guides his aim.",
+"para": 0
+},
+{
+"id": "6",
+"text": "Baldur drops dead.",
+"para": 0
+},
+{
+"id": "b4",
+"text": "And they cannot take revenge, because the place is sacred ground.",
+"para": 1
+},
+{
+"id": "7",
+"text": "The goddess Hel will release him only if every living thing weeps.",
+"para": 0
+},
+{
+"id": "8",
+"text": "Everything does, except one giantess in a cave.",
+"para": 0
+},
+{
+"id": "9",
+"text": "Baldur stays dead, and many say that giantess was Loki in disguise.",
+"para": 0
+},
+{
+"id": "b5",
+"text": "Odin understands what this means. In the seeress's vision, Baldur's death is the first crack in the world.",
+"para": 1
+},
+{
+"id": "10",
+"text": "Loki's punishment.",
+"para": 1
+},
+{
+"id": "11",
+"text": "The gods bind Loki in a cave with the entrails of his own son and hang a venomous snake above his face.",
+"para": 0
+},
+{
+"id": "12",
+"text": "His wife, Sigyn, catches the venom in a bowl, but when she has to empty it, the poison hits him and he thrashes.",
+"para": 0
+},
+{
+"id": "13",
+"text": "The Norse said that was what caused earthquakes.",
+"para": 0
+},
+{
+"id": "14",
+"text": "When Loki breaks free, it's over.",
+"para": 0
+},
+{
+"id": "c1",
+"text": "To understand why, you need to know Loki's children.",
+"para": 0
+},
+{
+"id": "c2",
+"text": "Loki fathered three monsters with a giantess: the wolf Fenrir, the world serpent Jormungandr, and Hel, who is half living and half dead.",
+"para": 0
+},
+{
+"id": "c3",
+"text": "Odin hurled the serpent into the sea, where it grew until it circled the whole earth and bit its own tail.",
+"para": 0
+},
+{
+"id": "c5",
+"text": "And the gods raised Fenrir themselves, until he grew so huge that they were afraid.",
+"para": 0
+},
+{
+"id": "c7",
+"text": "So they asked the dwarves for a ribbon called Gleipnir, made from the sound of a cat's footsteps, the beard of a woman, the roots of a mountain, and the breath of a fish.",
+"para": 0
+},
+{
+"id": "c8",
+"text": "Fenrir smelled a trick. He agreed to be tied only if one god put a hand in his mouth as a pledge. Only Týr dared.",
+"para": 0
+},
+{
+"id": "c9",
+"text": "The ribbon held. Fenrir bit down. And Týr lost his right hand, but the wolf stayed bound until the end of the world.",
+"para": 1
+},
+{
+"id": "15",
+"text": "Fimbulwinter.",
+"para": 1
+},
+{
+"id": "16",
+"text": "The countdown is a winter, not one, but three in a row with no summer between.",
+"para": 0
+},
+{
+"id": "17",
+"text": "Snow blows in from every side, and the sun gives no warmth.",
+"para": 0
+},
+{
+"id": "18",
+"text": "Human society collapses.",
+"para": 0
+},
+{
+"id": "19",
+"text": "Brothers kill brothers.",
+"para": 0
+},
+{
+"id": "20",
+"text": "Oaths are broken.",
+"para": 0
+},
+{
+"id": "b6",
+"text": "The seeress describes the world before the end like this: an age of axes, an age of swords, shields split in two, an age of wind, an age of wolves, before the world crashes down.",
+"para": 0
+},
+{
+"id": "b7",
+"text": "Everything that holds a society together is cut away, one thing at a time.",
+"para": 1
+},
+{
+"id": "21",
+"text": "Then the alarm sounds.",
+"para": 0
+},
+{
+"id": "22",
+"text": "Three roosters crow, one among the giants, one among the gods, one in the halls of the dead, and in the cave of Gnipahellir, the hound Garm howls.",
+"para": 1
+},
+{
+"id": "23",
+"text": "It has begun.",
+"para": 1
+}
+],
+"4": [
+{
+"id": "0",
+"text": "Two wolves have chased the sun and moon since the beginning.",
+"para": 0
+},
+{
+"id": "1",
+"text": "Now they catch them.",
+"para": 0
+},
+{
+"id": "2",
+"text": "The sky goes dark, and the stars vanish.",
+"para": 0
+},
+{
+"id": "d1",
+"text": "Their names are Sköll and Hati. Sköll takes the sun, and Hati takes the moon.",
+"para": 1
+},
+{
+"id": "3",
+"text": "The earth shakes so hard that mountains fall, and every chain in the world snaps.",
+"para": 0
+},
+{
+"id": "4",
+"text": "That frees Loki, and it frees Fenrir, the monstrous wolf the gods once tricked and bound.",
+"para": 1
+},
+{
+"id": "5",
+"text": "Fenrir charges with his lower jaw scraping the ground and his upper jaw touching the sky.",
+"para": 0
+},
+{
+"id": "d2",
+"text": "Flames burn from his eyes and nostrils.",
+"para": 0
+},
+{
+"id": "6",
+"text": "Beside him comes his brother, Jormungandr, the world serpent, who has circled the earth in the ocean.",
+"para": 0
+},
+{
+"id": "7",
+"text": "He heaves out of the sea, flooding the land and spitting venom across the sky.",
+"para": 1
+},
+{
+"id": "8",
+"text": "The ship Naglfar, built from the nails of the dead, breaks loose on the flood, packed with giants, with Loki at the helm.",
+"para": 0
+},
+{
+"id": "9",
+"text": "From the south ride the sons of Muspel, led by the fire giant Surtr, whose sword outshines the sun.",
+"para": 0
+},
+{
+"id": "10",
+"text": "They cross Bifrost, the rainbow bridge, and it breaks beneath them.",
+"para": 0
+},
+{
+"id": "d4",
+"text": "Bifrost is the only road between heaven and earth. And now it is gone.",
+"para": 1
+},
+{
+"id": "11",
+"text": "Heimdall, watchman of the gods, blows Gjallarhorn, and all nine worlds hear it.",
+"para": 0
+},
+{
+"id": "12",
+"text": "Odin rides to the well of Mimir for counsel.",
+"para": 0
+},
+{
+"id": "d5",
+"text": "That well is where Odin once gave up an eye for wisdom. Now he asks it for advice one last time.",
+"para": 1
+},
+{
+"id": "13",
+"text": "The world tree Yggdrasil shakes.",
+"para": 0
+},
+{
+"id": "d6",
+"text": "In Valhalla, Odin's hall, there are five hundred and forty doors, and eight hundred warriors can march through each one side by side.",
+"para": 1
+},
+{
+"id": "14",
+"text": "Then the gods arm themselves, along with the warriors of Valhalla, chosen to die in battle and wait for exactly this day, and ride out to meet the end.",
+"para": 1
+}
+],
+"5": [
+{
+"id": "0",
+"text": "The armies meet on a plain called Vigridr, a hundred leagues across.",
+"para": 0
+},
+{
+"id": "1",
+"text": "It plays out as a series of duels, each god against the enemy they were always meant to face.",
+"para": 0
+},
+{
+"id": "e1",
+"text": "The odds are not even. Gods who can die against monsters who cannot be reasoned with, and every one of them knows exactly how it ends.",
+"para": 1
+},
+{
+"id": "2",
+"text": "Odin versus Fenrir.",
+"para": 0
+},
+{
+"id": "3",
+"text": "Odin charges in a golden helmet with his spear Gungnir.",
+"para": 0
+},
+{
+"id": "4",
+"text": "Fenrir swallows him whole.",
+"para": 0
+},
+{
+"id": "e2",
+"text": "The father of the gods is gone, exactly as the prophecy said.",
+"para": 0
+},
+{
+"id": "5",
+"text": "But Odin’s silent son Vidar steps forward, wearing a thick shoe made from every scrap of leather ever trimmed from shoes.",
+"para": 0
+},
+{
+"id": "6",
+"text": "He plants it on the wolf’s lower jaw, grips the upper, and tears Fenrir apart.",
+"para": 0
+},
+{
+"id": "7",
+"text": "In another version, he stabs it through the heart.",
+"para": 1
+},
+{
+"id": "8",
+"text": "Thor versus Jormungandr.",
+"para": 0
+},
+{
+"id": "9",
+"text": "Thor meets the serpent he once fished for and nearly killed.",
+"para": 0
+},
+{
+"id": "e3",
+"text": "Their last meeting was out at sea, when Thor used an ox head as bait and hauled the whole serpent up to his boat.",
+"para": 0
+},
+{
+"id": "10",
+"text": "This time, Mjölnir finishes it.",
+"para": 0
+},
+{
+"id": "11",
+"text": "Thor takes nine steps away.",
+"para": 0
+},
+{
+"id": "12",
+"text": "Then the venom catches up, and he falls dead.",
+"para": 1
+},
+{
+"id": "13",
+"text": "Freyr versus Surtr.",
+"para": 0
+},
+{
+"id": "14",
+"text": "Freyr faces the lord of fire without his sword because he gave it away long ago to win the giantess Gerd.",
+"para": 0
+},
+{
+"id": "15",
+"text": "He has only an antler.",
+"para": 0
+},
+{
+"id": "e4",
+"text": "That sword could fight by itself, and without it, even a god can run out of luck.",
+"para": 0
+},
+{
+"id": "16",
+"text": "Surtr kills him.",
+"para": 1
+},
+{
+"id": "17",
+"text": "Týr versus Garm.",
+"para": 0
+},
+{
+"id": "18",
+"text": "Týr, who lost his hand binding Fenrir, fights the hound of Hel.",
+"para": 0
+},
+{
+"id": "19",
+"text": "They kill each other.",
+"para": 1
+},
+{
+"id": "20",
+"text": "Heimdall versus Loki.",
+"para": 0
+},
+{
+"id": "21",
+"text": "Old enemies face to face at last.",
+"para": 0
+},
+{
+"id": "22",
+"text": "Both die.",
+"para": 0
+},
+{
+"id": "e6",
+"text": "Heimdall, who sees for a hundred miles and hears the grass grow, never saw this one coming.",
+"para": 1
+},
+{
+"id": "23",
+"text": "Odin, Thor, Freyr, Týr, Heimdall.",
+"para": 0
+},
+{
+"id": "24",
+"text": "Gone in moments.",
+"para": 0
+},
+{
+"id": "e7",
+"text": "The gods who held the world together are gone, and what is left will burn.",
+"para": 1
+},
+{
+"id": "25",
+"text": "The prophecy was exact.",
+"para": 1
+}
+],
+"6": [
+{
+"id": "0",
+"text": "When the last god has fallen, Surtr is still standing.",
+"para": 0
+},
+{
+"id": "1",
+"text": "He hurls fire across the world.",
+"para": 0
+},
+{
+"id": "2",
+"text": "Flames lick the sky itself.",
+"para": 0
+},
+{
+"id": "3",
+"text": "The stars fall, and the earth sinks beneath the sea.",
+"para": 1
+},
+{
+"id": "4",
+"text": "That's the end of the world, but not the end of the story.",
+"para": 1
+},
+{
+"id": "5",
+"text": "The seeress looks once more and sees the earth rising from the sea, green and fresh, with fields growing crops no one planted.",
+"para": 0
+},
+{
+"id": "f1",
+"text": "Waterfalls tumble from the new hills, and an eagle flies over them, hunting fish.",
+"para": 1
+},
+{
+"id": "6",
+"text": "A few gods survive: Vidar and Vali, sons of Odin, and Modi and Magni, sons of Thor, who inherit Mjollnir.",
+"para": 0
+},
+{
+"id": "7",
+"text": "They meet on the old field of Idavellir and find the golden game pieces the gods once played with.",
+"para": 0
+},
+{
+"id": "8",
+"text": "Then, Baldur and Hodur return from the dead, reconciled.",
+"para": 1
+},
+{
+"id": "9",
+"text": "The sun had a daughter before the wolf swallowed her, just as bright, and she takes her mother's place.",
+"para": 0
+},
+{
+"id": "10",
+"text": "Two humans, Lif and Lifthrasir, hid through the fire and now repopulate the world.",
+"para": 0
+},
+{
+"id": "f4",
+"text": "They survived by hiding in a wood called Hoddmimir's Holt, living on the morning dew.",
+"para": 1
+},
+{
+"id": "11",
+"text": "And the seeress glimpses a hall roofed in gold called Gimle, where the righteous live.",
+"para": 0
+},
+{
+"id": "f5",
+"text": "In that hall, the seeress says, there is joy forever.",
+"para": 1
+},
+{
+"id": "12",
+"text": "Scholars suspect Christian influence here.",
+"para": 1
+},
+{
+"id": "13",
+"text": "Not everything is cleansed, though.",
+"para": 0
+},
+{
+"id": "14",
+"text": "The dragon Nidhogg still flies by, carrying corpses on his wings.",
+"para": 0
+},
+{
+"id": "f6",
+"text": "Then the seeress sinks back down, and the vision ends.",
+"para": 1
+}
+],
+"7": [
+{
+"id": "0",
+"text": "In almost every other mythology, the gods can't lose.",
+"para": 0
+},
+{
+"id": "1",
+"text": "In the Norse world, they can, and they know it.",
+"para": 0
+},
+{
+"id": "2",
+"text": "Fate is stronger than Odin.",
+"para": 0
+},
+{
+"id": "g1",
+"text": "Odin spent his whole life collecting knowledge to escape this fate. He hung from a tree, gave up an eye, and still could not change it.",
+"para": 1
+},
+{
+"id": "3",
+"text": "The whole point is what they do with that knowledge.",
+"para": 0
+},
+{
+"id": "4",
+"text": "They don't hide or bargain.",
+"para": 0
+},
+{
+"id": "5",
+"text": "They prepare and they ride out.",
+"para": 0
+},
+{
+"id": "6",
+"text": "For the Vikings, courage meant standing your ground when you know how it ends.",
+"para": 0
+},
+{
+"id": "g2",
+"text": "There is a famous line in the Havamal: cattle die, kinsmen die, you yourself will die, but fame never dies for the one who earns a good name.",
+"para": 1
+},
+{
+"id": "7",
+"text": "And the world burns and the world returns.",
+"para": 0
+},
+{
+"id": "8",
+"text": "Nothing is permanent, not even the end.",
+"para": 0
+},
+{
+"id": "g3",
+"text": "Some scholars think the rebirth was shaped by Christian ideas, and some think it is much older. Nobody can prove it.",
+"para": 1
+},
+{
+"id": "9",
+"text": "If you want more stories like this, I post mythology on Quasi Mythology, so subscribe so you don't miss the next one.",
+"para": 1
+},
+{
+"id": "10",
+"text": "And tell me in the comments, which fight at Ragnarok would you want to see animated first?",
+"para": 0
+},
+{
+"id": "11",
+"text": "Odin and Fenrir or Thor and the serpent?",
+"para": 1
+},
+{
+"id": "12",
+"text": "Thanks for watching.",
+"para": 1
+}
+]
+}

@@ -1,0 +1,170 @@
+<title>What Happens at Ragnarök</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Inter:wght@400;500;600&display=swap">
+<style>
+/* Layout: one centred column. A 16:9 player first, then the chapter list beside it on wide screens and below it on phones. Single dark look, taken from the video's own night-sky palette. */
+:root{
+  --ink:#0f0c1d; --panel:#181330; --panel-2:#211a42; --line:#352c63;
+  --gold:#ffd34d; --ice:#bfe8ff; --ember:#ff7a3b;
+  --text:#f3eefb; --muted:#aaa3c9;
+  --display:Fredoka,'Trebuchet MS','Arial Rounded MT Bold',sans-serif;
+  --body:Inter,system-ui,-apple-system,'Segoe UI',sans-serif;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--ink);color:var(--text);font:15px/1.55 var(--body);
+  background-image:radial-gradient(120% 70% at 50% -10%,#2a1f55 0%,var(--ink) 62%)}
+.wrap{max-width:1180px;margin:0 auto;padding-block:28px 56px;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+header{display:flex;flex-direction:column;gap:6px;margin-bottom:20px}
+h1{margin:0;font:700 clamp(30px,6vw,52px)/1.05 var(--display);color:var(--gold);text-wrap:balance;letter-spacing:.2px}
+.sub{margin:0;color:var(--muted);max-width:60ch}
+.layout{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:22px;align-items:start}
+@media (max-width:900px){.layout{grid-template-columns:minmax(0,1fr)}}
+.stage{position:relative;background:#000;border-radius:14px;overflow:hidden;aspect-ratio:16/9;max-width:100%;border:1px solid var(--line)}
+.stage video{position:absolute;inset:0;width:100%;height:100%;background:#000;display:block;object-fit:contain}
+.stage video[hidden],svg[hidden],.big-play[hidden]{display:none}
+.big-play{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:linear-gradient(180deg,rgba(15,12,29,.1),rgba(15,12,29,.55));border:0;cursor:pointer;color:var(--text);width:100%}
+.big-play span{display:flex;align-items:center;justify-content:center;width:84px;height:84px;border-radius:50%;background:var(--gold);color:#14102a;box-shadow:0 8px 30px rgba(0,0,0,.45)}
+.big-play[hidden]{display:none}
+.bar{display:flex;align-items:center;gap:12px;margin-top:12px;padding:10px 12px;background:var(--panel);border:1px solid var(--line);border-radius:12px}
+.btn{display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:10px;border:1px solid var(--line);background:var(--panel-2);color:var(--text);cursor:pointer;flex:none}
+.btn:hover{border-color:var(--gold)}
+.btn:focus-visible,.chap:focus-visible,.big-play:focus-visible,#seek:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+.time{font:500 13px/1 var(--body);font-variant-numeric:tabular-nums;color:var(--muted);white-space:nowrap}
+#seek{flex:1;min-width:0;height:28px;accent-color:var(--gold);cursor:pointer;background:transparent}
+.note{margin:10px 2px 0;color:var(--muted);font-size:13px}
+aside h2{margin:0 0 10px;font:600 18px/1.2 var(--display);color:var(--ice)}
+.chaps{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px}
+.chap{display:flex;width:100%;align-items:baseline;gap:10px;text-align:left;padding:10px 12px;border-radius:10px;border:1px solid var(--line);background:var(--panel);color:var(--text);cursor:pointer;font:500 14px/1.3 var(--body)}
+.chap:hover{border-color:var(--ice)}
+.chap .t{font-variant-numeric:tabular-nums;color:var(--muted);font-size:12px;flex:none;width:38px}
+.chap .n{flex:1;min-width:0}
+.chap[aria-current="true"]{border-color:var(--gold);background:var(--panel-2)}
+.chap[aria-current="true"] .t{color:var(--gold)}
+.dlrow{display:flex;flex-wrap:wrap;align-items:center;gap:10px 14px;margin-top:12px;position:relative;z-index:3}
+.dl{display:inline-flex;align-items:center;gap:10px;padding:12px 20px;border-radius:12px;border:2px solid #14102a;background:var(--gold);color:#14102a;font:700 16px/1 var(--display);cursor:pointer}
+.dl:hover{filter:brightness(1.06)}
+.dl:disabled{opacity:.65;cursor:default}
+.dl:focus-visible{outline:3px solid var(--ice);outline-offset:2px}
+.dlnote{color:var(--muted);font-size:13px;flex-basis:100%}
+.dl small{font:500 12px/1 var(--body);opacity:.8}
+.dlrow[hidden]{display:none}
+.foot{margin-top:26px;color:var(--muted);font-size:13px;max-width:70ch}
+</style>
+
+<div class="wrap">
+  <header>
+    <h1>What Happens at Ragnarök</h1>
+    <p class="sub">How the Norse world ends and begins again: the omens, the collapse, the last battle, the fire, and the rebirth. Twelve minutes, told in order.</p>
+  </header>
+
+  <div class="layout">
+    <main>
+      <div class="stage" id="stage">
+        <video id="v0" playsinline preload="metadata" poster="poster.jpg"></video>
+        <video id="v1" playsinline preload="none" hidden></video>
+        <button class="big-play" id="bigPlay" aria-label="Play the video"><span><svg width="34" height="34" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5.5v13a1 1 0 0 0 1.5.86l10.5-6.5a1 1 0 0 0 0-1.72L9.5 4.64A1 1 0 0 0 8 5.5z"/></svg></span></button>
+      </div>
+      <div class="bar">
+        <button class="btn" id="play" aria-label="Play"><svg id="icoPlay" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5.5v13a1 1 0 0 0 1.5.86l10.5-6.5a1 1 0 0 0 0-1.72L9.5 4.64A1 1 0 0 0 8 5.5z"/></svg><svg id="icoPause" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" hidden><rect x="6" y="5" width="4.5" height="14" rx="1"/><rect x="13.5" y="5" width="4.5" height="14" rx="1"/></svg></button>
+        <input id="seek" type="range" min="0" max="7256" value="0" step="1" aria-label="Seek through the whole video">
+        <span class="time" id="clock">0:00 / 12:05</span>
+        <button class="btn" id="mute" aria-label="Mute"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9.5v5h4l5 4v-13l-5 4z" fill="currentColor"/><path id="wave" d="M16.5 8.5a5 5 0 0 1 0 7M19 6a8.5 8.5 0 0 1 0 12"/></svg></button>
+        <button class="btn" id="full" aria-label="Full screen"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg></button>
+      </div>
+      <div class="dlrow" id="dlrow"><button class="dl" type="button" data-part="0"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11M7 11l5 5 5-5M5 20h14"/></svg><span class="lab">Download part 1</span> <small>0:00 to 5:04</small></button><button class="dl" type="button" data-part="1"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11M7 11l5 5 5-5M5 20h14"/></svg><span class="lab">Download part 2</span> <small>5:04 to 8:57</small></button><button class="dl" type="button" data-part="2"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11M7 11l5 5 5-5M5 20h14"/></svg><span class="lab">Download part 3</span> <small>8:57 to 12:05</small></button><span class="dlnote">The video is saved in three files because shared files are limited to 15 MB. One button per part, so each click saves one file. Play them in order.</span></div>
+      <p class="note" id="note">Plays in three parts that continue on their own. Use the timeline or the chapters to jump anywhere.</p>
+    </main>
+
+    <aside>
+      <h2>Chapters</h2>
+      <ol class="chaps" id="chaps"></ol>
+    </aside>
+  </div>
+
+  <p class="foot">Sources behind the story: the Poetic Edda (mainly Völuspá and Vafþrúðnismál) and Snorri Sturluson's Prose Edda, both written down in 13th-century Iceland. Where they differ, the narration says so.</p>
+</div>
+
+<script>
+/* three files cut at chapter boundaries (each under the 15 MB artifact limit); the page plays them as one video */
+const PARTS=[{src:'part1.mp4',start:0,dur:303.75},{src:'part2.mp4',start:303.75,dur:233.625},{src:'part3.mp4',start:537.375,dur:188.208}];
+const TOTAL=725.58;
+const CHAPTERS=[['Cold open',0],['Where we know this from',40.2],['The omens',108.5],['The world unravels',303.8],['The battle on Vígríðr',413.4],['Fire, then rebirth',537.4],['What it means',632.3]];
+const $=id=>document.getElementById(id);
+const vids=[$('v0'),$('v1')];
+let act=0;                       // which <video> element is showing
+const holds=[0,-1];              // which part each element holds
+let playing=false,want=false;
+const fmt=s=>{s=Math.max(0,Math.floor(s));return Math.floor(s/60)+':'+String(s%60).padStart(2,'0')};
+const partAt=g=>{for(let i=PARTS.length-1;i>=0;i--)if(g>=PARTS[i].start)return i;return 0};
+const cur=()=>PARTS[holds[act]].start+(vids[act].currentTime||0);
+
+function setPart(el,p,pre){holds[el]=p;vids[el].src=PARTS[p].src;vids[el].preload=pre||'auto';vids[el].load()}
+function preloadNext(){const p=holds[act]+1,o=1-act;if(p<PARTS.length&&holds[o]!==p)setPart(o,p,'metadata')}
+function warmNext(g){const p=holds[act],o=1-act;if(p+1<PARTS.length&&holds[o]===p+1&&(g-PARTS[p].start)/PARTS[p].dur>.55&&vids[o].preload!=='auto')vids[o].preload='auto'}
+function show(el){vids[el].hidden=false;vids[1-el].hidden=true;vids[1-el].pause();act=el}
+function whenReady(v,fn){if(v.readyState>=1)fn();else v.addEventListener('loadedmetadata',fn,{once:true})}
+function seekGlobal(g,autoplay){
+  g=Math.min(Math.max(0,g),TOTAL-.05);const p=partAt(g),t=g-PARTS[p].start;
+  $('bigPlay').hidden=true;
+  let el=holds[act]===p?act:(holds[1-act]===p?1-act:-1);
+  if(el<0){el=1-act;setPart(el,p)}
+  vids[act].pause();show(el);
+  const v=vids[el];
+  whenReady(v,()=>{v.currentTime=t;if(autoplay||want)start();draw()});
+  preloadNext();
+}
+function start(){const v=vids[act];want=true;const r=v.play();if(r&&r.catch)r.catch(()=>{want=false;sync()})}
+function stop(){want=false;vids[act].pause()}
+function toggle(){if(vids[act].paused||vids[act].ended)start();else stop()}
+
+vids.forEach((v,i)=>{
+  v.addEventListener('play',()=>{if(i===act){playing=true;sync()}});
+  v.addEventListener('pause',()=>{if(i===act){playing=false;sync()}});
+  v.addEventListener('ended',()=>{if(i!==act)return;const p=holds[i]+1;if(p<PARTS.length){seekGlobal(PARTS[p].start,true)}else{want=false;playing=false;sync()}});
+  v.addEventListener('timeupdate',()=>{if(i===act)draw()});
+});
+function sync(){$('icoPlay').hidden=playing;$('icoPause').hidden=!playing;$('play').setAttribute('aria-label',playing?'Pause':'Play')}
+let scrubbing=false;
+function draw(){
+  const g=cur();warmNext(g);
+  if(!scrubbing)$('seek').value=Math.round(g*10);
+  $('clock').textContent=fmt(g)+' / '+fmt(TOTAL);
+  let c=0;CHAPTERS.forEach((x,i)=>{if(g>=x[1]-.01)c=i});
+  document.querySelectorAll('.chap').forEach((b,i)=>b.setAttribute('aria-current',i===c?'true':'false'));
+}
+$('seek').max=Math.round(TOTAL*10);
+$('seek').addEventListener('input',e=>{scrubbing=true;$('clock').textContent=fmt(e.target.value/10)+' / '+fmt(TOTAL)});
+$('seek').addEventListener('change',e=>{scrubbing=false;seekGlobal(e.target.value/10,playing||want)});
+$('play').addEventListener('click',()=>{if($('bigPlay').hidden===false)$('bigPlay').hidden=true;toggle()});
+$('bigPlay').addEventListener('click',()=>{$('bigPlay').hidden=true;start()});
+$('mute').addEventListener('click',()=>{const m=!vids[0].muted;vids.forEach(v=>v.muted=m);$('mute').setAttribute('aria-label',m?'Unmute':'Mute');$('wave').style.opacity=m?0:1});
+$('full').addEventListener('click',()=>{const s=$('stage');try{if(document.fullscreenElement)document.exitFullscreen();else if(s.requestFullscreen)s.requestFullscreen().catch(()=>{})}catch(e){}});
+vids[0].addEventListener('click',()=>{if(!$('bigPlay').hidden)return;toggle()});
+vids[1].addEventListener('click',()=>toggle());
+const ol=$('chaps');
+CHAPTERS.forEach(([name,t],i)=>{const li=document.createElement('li');const b=document.createElement('button');b.className='chap';b.type='button';b.setAttribute('aria-current','false');
+  b.innerHTML='<span class="t"></span><span class="n"></span>';b.children[0].textContent=fmt(t);b.children[1].textContent=name;
+  b.addEventListener('click',()=>seekGlobal(t,true));li.appendChild(b);ol.appendChild(li)});
+setPart(0,0);vids[0].poster='poster.jpg';preloadNext();draw();sync();
+
+/* download: one button per part; each click fetches that published part and hands it to the viewer's downloads capability */
+let dlBusy=false;
+(async()=>{let ok=null;try{ok=window.claude&&await window.claude.use('downloads')}catch(e){}if(!ok)$('dlrow').hidden=true})();
+document.querySelectorAll('.dl').forEach(btn=>btn.addEventListener('click',async()=>{
+  if(dlBusy)return;const i=+btn.dataset.part,lab=btn.querySelector('.lab'),orig='Download part '+(i+1);
+  dlBusy=true;document.querySelectorAll('.dl').forEach(b=>b.disabled=true);let msg=orig;
+  try{
+    if(playing||want)stop();
+    lab.textContent='Preparing…';
+    const dl=await window.claude.use('downloads');if(!dl)throw Object.assign(new Error('unavailable'),{code:'unavailable'});
+    const r=await fetch(PARTS[i].src);if(!r.ok)throw new Error('missing');
+    const blob=new Blob([await r.arrayBuffer()],{type:'video/mp4'});
+    await dl.save({filename:'Ragnarok-part-'+(i+1)+'-of-'+PARTS.length+'.mp4',data:blob});
+    msg='Saved part '+(i+1);
+  }catch(e){msg=(e&&e.code==='declined')?orig:'Could not save, try again'}
+  lab.textContent=msg;if(msg!==orig)setTimeout(()=>{lab.textContent=orig},4000);
+  document.querySelectorAll('.dl').forEach(b=>b.disabled=false);dlBusy=false;
+}));
+</script>
