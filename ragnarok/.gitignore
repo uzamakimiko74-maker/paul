@@ -1,0 +1,16 @@
+frames/
+clips/
+test*/
+sheet*.jpg
+thumb_bg.jpg
+thumb_local.html
+thumb_preview.png
+audio/
+web/node_modules/
+web/package-lock.json
+web/egypt_src.html
+work/*.wav
+work/*.mp3
+work/*.log
+work/*.out
+out/*.mp4
