@@ -20,3 +20,4 @@ test*/
 work/*.log
 work/*.out
 work/__pycache__/
+qa/
