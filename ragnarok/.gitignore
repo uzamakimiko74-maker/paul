@@ -21,3 +21,8 @@ work/*.log
 work/*.out
 work/__pycache__/
 qa/
+artifact/*.mp4
+artifact/*.png
+artifact/q.jpg
+artifact/poster.jpg
+web/pagetest.js
