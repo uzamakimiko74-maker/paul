@@ -154,8 +154,8 @@ for i, s, e, txt in cues:
     start = s + .05 + OFF.get(i, 0); add(voice, start, fade(w, .01, .05), 1.0)
 vr = fftconvolve(voice, ir * .5)[:N]; voice = voice * .93 + .07 * vr
 venv = lp(np.abs(voice), 6, 1); venv = np.clip(venv / (np.percentile(venv, 98) + 1e-9) * 3, 0, 1)
-duck = 1 - .5 * venv                                        # music (and effects) dip under the voice
-mix = (music * duck) * .9 + (sfx * (1 - .35 * venv)) + voice * 1.0
+duck = 1 - .6 * venv                                        # music (and effects) dip under the voice
+mix = (music * duck) * .42 + (sfx * (1 - .35 * venv)) + voice * 1.0
 mix = hp(mix, 50, 2); mix = lp(mix, 14000, 2)
 mix = mix / max(1e-9, np.abs(mix).max()) * .9
 os.makedirs(os.path.join(HERE, 'out'), exist_ok=True)
