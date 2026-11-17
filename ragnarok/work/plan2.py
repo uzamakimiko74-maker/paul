@@ -7,7 +7,7 @@ TARGET = 720.0; INTRO = 3.0; CARD = 4.5; OUTRO = 20.0
 SCRIPT = {int(k): v for k, v in json.load(open('script2.json')).items()}
 HEAD_IDS = {3: {'0', '10', '15'}, 5: {'2', '8', '13', '17', '20'}}
 def audio(i):
-    p = subprocess.run(['ffmpeg', '-v', 'error', '-i', f'/home/user/paul/ragnarok/audio2/deep_s{i}.wav', '-f', 'f32le', '-ac', '1', '-ar', str(SR), '-'], capture_output=True)
+    p = subprocess.run(['ffmpeg', '-v', 'error', '-i', f'/home/user/paul/ragnarok/audio2/orig_s{i}.wav', '-f', 'f32le', '-ac', '1', '-ar', str(SR), '-'], capture_output=True)
     return np.frombuffer(p.stdout, dtype=np.float32)
 AU = {i: audio(i) for i in range(1, 8)}
 STT = {i: json.load(open(f'words2_s{i}.json')) for i in range(1, 8)}
