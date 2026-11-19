@@ -266,16 +266,32 @@ playBtn.onclick=()=>{
 /* the finished file is rendered in the sandbox and published beside this page; the viewer just saves it */
 const FILE='japanese-gods-ranked.mp4',LABEL='Download video';let busy=false;
 (async()=>{try{const d=await window.claude?.use?.('downloads');if(!d){dlBtn.title='Saving is not available in this view';dlBtn.disabled=true;dlBtn.textContent='Download unavailable'}}catch(_){dlBtn.disabled=true;dlBtn.textContent='Download unavailable'}})();
+/* Saving has three stages, and each says what it is waiting for:
+   1. fetching the file beside this page (with a byte count), 2. waiting for the viewer to confirm
+   (save() stays pending until they do), 3. done. A stalled fetch gives up with a message. */
+const mb=n=>(n/1048576).toFixed(1);
+async function fetchFile(onProgress){
+ const ctl=new AbortController();let timer;const arm=()=>{clearTimeout(timer);timer=setTimeout(()=>ctl.abort(),30000)};arm();
+ try{
+  const r=await fetch(FILE,{signal:ctl.signal});if(!r.ok)throw Object.assign(new Error('file '+r.status),{code:'fetch'});
+  const total=+r.headers.get('content-length')||0;
+  if(!r.body||!r.body.getReader){onProgress(0,total);return await r.blob()}
+  const rd=r.body.getReader(),parts=[];let got=0;
+  for(;;){const {done,value}=await rd.read();if(done)break;parts.push(value);got+=value.length;arm();onProgress(got,total)}
+  return new Blob(parts,{type:'video/mp4'});
+ }catch(err){if(err&&err.name==='AbortError')throw Object.assign(new Error('timed out'),{code:'timeout'});throw err}
+ finally{clearTimeout(timer)}}
 dlBtn.onclick=async()=>{
  if(busy)return;busy=true;dlBtn.disabled=true;dlBtn.textContent='Preparing\u2026';let msg=LABEL;
  try{
   if(playing){playing=false;narr.pause();wallBase=clockT();showOverlay('\u25b6 Resume')}
-  const r=await fetch(FILE);if(!r.ok)throw Object.assign(new Error('file '+r.status),{code:'fetch'});
-  const blob=new Blob([await r.arrayBuffer()],{type:'video/mp4'});
+  const blob=await fetchFile((got,total)=>{dlBtn.textContent='Fetching '+mb(got)+(total?' / '+mb(total):'')+' MB'});
   const dl=await window.claude.use('downloads');if(!dl)throw Object.assign(new Error('unavailable'),{code:'unavailable'});
+  dlBtn.textContent='Confirm the save\u2026';setStatus('Waiting for you to confirm the download. Look for the prompt in this window.');
   await dl.save({filename:FILE,data:blob});
   msg='Saved'
  }catch(err){if(err&&err.code==='declined')msg=LABEL;else{msg='Could not save ('+((err&&(err.code||err.message))||'error')+')';console.error(err)}}
- dlBtn.textContent=msg;setTimeout(()=>{dlBtn.textContent=LABEL},3500);
+ setStatus('Five Japanese gods ranked \u00b7 94 seconds \u00b7 with narration');
+ dlBtn.textContent=msg;setTimeout(()=>{dlBtn.textContent=LABEL},4000);
  dlBtn.disabled=false;busy=false;
 };
