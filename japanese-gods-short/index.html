@@ -184,7 +184,7 @@ Object.assign(KINDS,{
  SU:{robe:'#3d63d6',trim:'#1b2a73',skin:'#fff',prop:'sword',sash:1},
  TS:{robe:'#aab8ff',trim:'#5a64c4',skin:'#eef0ff',top:'#15152f',prop:'moon',sash:1},
  IZ:{robe:'#42224d',trim:'#9b3bd1',skin:'#dcebe0',top:'#0f0716',crown:'horn',prop:'',sash:1},
- AM:{robe:'#fff0c4',trim:'#f0b830',skin:'#fff',top:'#2a1608',crown:'laurel',prop:'mirror',sash:1}});
+ AM:{robe:'#fdf6ec',trim:'#d8352b',skin:'#fff',top:'#140d1e',crown:'',prop:'mirror',sash:1}});
 /* extra props */
 const _dp=drawProp;
 drawProp=function(g,type,x,y,t,K){
@@ -208,7 +208,13 @@ function decorate(gs,c,t){
   ln(gs,66,126,52,260,20,OL);ln(gs,66,126,52,260,13,'#15152f');ln(gs,190,126,204,260,20,OL);ln(gs,190,126,204,260,13,'#15152f')}
  if(c.k==='IZ'){ln(gs,66,120,46,262,22,OL);ln(gs,66,120,46,262,15,'#0f0716');ln(gs,190,120,210,262,22,OL);ln(gs,190,120,210,262,15,'#0f0716');
   gs.fillStyle='#ff3b3b';gs.beginPath();gs.arc(128,92,5,0,7);gs.fill()}
- if(c.k==='AM'){[[84,96],[172,96]].forEach(([x,y])=>{gs.fillStyle='#ffd34d';gs.lineWidth=3;gs.beginPath();for(let k=0;k<10;k++){const r=k%2?4:10,b=k/10*6.283;gs.lineTo(x+Math.cos(b)*r,y+Math.sin(b)*r)}gs.closePath();gs.fill();gs.stroke()})}
+ if(c.k==='AM'){
+  [[72,120,56,266],[184,120,200,266]].forEach(([x0,y0,x1,y1])=>{ln(gs,x0,y0,x1,y1,21,OL);ln(gs,x0,y0,x1,y1,14,'#140d1e')});
+  gs.save();gs.translate(128,50);gs.fillStyle='#ffd34d';gs.strokeStyle=OL;gs.lineWidth=4;
+  for(let i=0;i<12;i++){gs.save();gs.rotate(i*Math.PI/6);gs.beginPath();gs.moveTo(-3.4,-15);gs.lineTo(3.4,-15);gs.lineTo(0,-29);gs.closePath();gs.fill();gs.stroke();gs.restore()}
+  gs.beginPath();gs.arc(0,0,17,0,7);gs.fill();gs.stroke();gs.fillStyle='#d8352b';gs.beginPath();gs.arc(0,0,9,0,7);gs.fill();gs.restore();
+  gs.strokeStyle=OL;gs.lineWidth=4;gs.beginPath();gs.moveTo(94,200);gs.quadraticCurveTo(128,224,162,200);gs.stroke();
+  [[98,206],[113,215],[128,218],[143,215],[158,206]].forEach(([x,y],i)=>{gs.fillStyle=i%2?'#ffd34d':'#3fae8a';gs.lineWidth=3;gs.beginPath();gs.arc(x,y,6.5,0,7);gs.fill();gs.stroke()})}
  gs.restore()}
 /* ===== assets ===== */
 const IMGN=['dawn','ebisu','susanoo','tsukuyomi','izanami','amaterasu','cave'],IMG={};let nLoaded=0;
@@ -268,6 +274,11 @@ function serpent(d,t){const t0=d.t.serpent,dz=t>d.t.drunk;const u=eout((t-t0)/.7
   if(dz){g.strokeStyle=OL;g.lineWidth=3;[-9,9].forEach(o=>{ln(g,hx+o-4,hy-6,hx+o+4,hy+2,3);ln(g,hx+o+4,hy-6,hx+o-4,hy+2,3)});g.fillStyle='#ff6b9d';g.beginPath();g.ellipse(hx+4,hy+14,5,9,0,0,7);g.fill()}
   else{g.fillStyle='#ffe45c';[-9,9].forEach(o=>{g.beginPath();g.ellipse(hx+o,hy-3,6,7,0,0,7);g.fill()});g.fillStyle=OL;[-9,9].forEach(o=>g.fillRect(hx+o-1.5,hy-8,3,10))}}
  g.restore()}
+function halo(cx,cy,s,t,a){if(a<=0)return;g.save();g.globalAlpha=a;
+ const r=82*s,gr=g.createRadialGradient(cx,cy,r*.6,cx,cy,r*1.5);gr.addColorStop(0,'rgba(255,206,110,.55)');gr.addColorStop(1,'rgba(255,206,110,0)');
+ g.fillStyle=gr;g.beginPath();g.arc(cx,cy,r*1.5,0,7);g.fill();
+ g.fillStyle='#e0402f';g.beginPath();g.arc(cx,cy,r,0,7);g.fill();
+ g.strokeStyle='#ffd34d';g.lineWidth=5*s;g.beginPath();g.arc(cx,cy,r,0,7);g.stroke();g.restore()}
 function rays(cx,cy,t,a,len){g.save();g.translate(cx,cy);g.rotate(t*.12);for(let i=0;i<16;i++){g.rotate(Math.PI*2/16);const gr=g.createLinearGradient(0,0,len,0);gr.addColorStop(0,'rgba(255,240,170,'+(.55*a)+')');gr.addColorStop(1,'rgba(255,220,120,0)');
  g.fillStyle=gr;g.beginPath();g.moveTo(0,-14);g.lineTo(len,-34);g.lineTo(len,34);g.lineTo(0,14);g.closePath();g.fill()}g.restore()}
 function confetti(t,a0){const cols=['#ffd34d','#6ec6ff','#ff6b9d','#8be28b','#c79bff'];for(let i=0;i<46;i++){const r=rng(i*7+3);const x=r()*540,sp=140+r()*160,y=((t-a0)*sp+r()*960)%1000-30;g.save();g.translate(x+Math.sin(t*3+i)*14,y);g.rotate(t*4+i);g.fillStyle=cols[i%5];g.fillRect(-5,-3,10,6);g.restore()}}
@@ -330,6 +341,7 @@ function section(d,t){const lt=t-d.a,u=lt/(d.b-d.a);let z=1.06+.12*u+pulse(t),px
  const e=exAt(d,t),gs=1.28*(.55+.45*eout(lt/.4))*(1+pulse(t)*.9);
  let gx=270,rot=0;if(d.k==='EB'){const ad=d.cue[1].t;if(t>ad&&t<ad+1.8){rot=Math.sin(t*3)*.12;gx+=Math.sin(t*1.5)*30}}
  if(d.k==='SU'&&t>d.cue[5].t&&t<d.cue[5].t+1){rot=Math.sin(t*14)*.1}
+ if(d.k==='AM')halo(gx,700-204*gs,gs,t,1-dark*.85);
  sprite({k:d.k,ex:e.ex,fx:e.fx},t,gx,700,gs,1-.5*dark,rot);
  if(d.k==='EB')waves(t);
  if(d.k==='SU'){lightning(t,d)}
