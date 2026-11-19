@@ -200,9 +200,25 @@ function render(t){K=cv.width/K0;g.setTransform(K,0,0,K,0,0);g.imageSmoothingEna
  if(t<T_LINE)hook(t);else if(t<DEF[0].a)lineup(t);else if(t>=OUT_A)outro(t);else{let d=DEF[0];for(const x of DEF)if(t>=x.a)d=x;section(d,t)}
  captions(t)}
 window.render=render;window.DUR=DUR;
-/* ===== simple player (live preview) ===== */
-let playing=false;function loop(){if(!playing)return;render(narr.currentTime);if(!narr.ended)requestAnimationFrame(loop);else{playing=false;$('overlay').hidden=false;$('playBtn').textContent='▶ Replay'}}
-function fit(){const w=Math.min(innerWidth,innerHeight*9/16);$('stage').style.width=w+'px'}
-addEventListener('resize',fit);fit();
-$('playBtn').onclick=()=>{narr.currentTime=0;narr.play();$('overlay').hidden=true;playing=true;loop()};
+/* ===== player ===== */
 cv.width=1080;cv.height=1920;
+const overlay=$('overlay'),playBtn=$('playBtn'),fillEl=$('fill'),dlBtn=$('dl');
+let playing=false;
+function loop(){if(!playing)return;const t=narr.currentTime;render(t);fillEl.style.width=(100*Math.min(1,t/DUR))+'%';
+ if(!narr.ended)requestAnimationFrame(loop);else{playing=false;overlay.hidden=false;playBtn.textContent='\u25b6 Replay'}}
+playBtn.onclick=()=>{narr.currentTime=0;narr.play().catch(()=>{});overlay.hidden=true;playing=true;loop()};
+/* the finished file is rendered in the sandbox and published beside this page; the viewer just saves it */
+const FILE='japanese-gods-ranked.mp4',LABEL='Download video';let busy=false;
+(async()=>{try{const d=await window.claude?.use?.('downloads');if(!d)dlBtn.hidden=true}catch(_){dlBtn.hidden=true}})();
+dlBtn.onclick=async()=>{
+ if(busy)return;busy=true;dlBtn.disabled=true;dlBtn.textContent='Preparing\u2026';let msg=LABEL;
+ try{
+  if(playing){playing=false;narr.pause()}
+  const r=await fetch(FILE);if(!r.ok)throw new Error('missing');
+  const blob=new Blob([await r.arrayBuffer()],{type:'video/mp4'});
+  const dl=await window.claude.use('downloads');if(!dl)throw Object.assign(new Error('unavailable'),{code:'unavailable'});
+  await dl.save({filename:FILE,data:blob});
+ }catch(err){if(!(err&&err.code==='declined'))msg='Could not save, try again'}
+ dlBtn.textContent=msg;if(msg!==LABEL)setTimeout(()=>{dlBtn.textContent=LABEL},3500);
+ dlBtn.disabled=false;busy=false;
+};
