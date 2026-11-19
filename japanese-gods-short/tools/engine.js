@@ -51,7 +51,8 @@ function hagoromo(cx,cy,w,t,a){if(a<=0)return;const i=Math.floor(t*HFPS)%HN,h=w*
  g.save();g.globalAlpha=a;g.shadowColor='rgba(30,12,48,.5)';g.shadowBlur=w*.035;
  g.drawImage(HAGO,(i%4)*HW,((i/4)|0)*HH,HW,HH,cx-w/2,cy-h/2,w,h);g.restore()}
 /* the same cloth drawn again over her, clipped to a band, so it reads as worn and not floating behind */
-function hagoFront(cx,cy,w,t,a,y0,y1){g.save();g.beginPath();g.rect(0,y0,K0,y1-y0);g.clip();hagoromo(cx,cy,w,t,a);g.restore()}
+function hagoFront(cx,cy,w,t,a,y0,y1,hy,hr){g.save();g.beginPath();
+ g.rect(0,y0,K0,y1-y0);g.arc(cx,hy,hr,0,7);g.clip('evenodd');hagoromo(cx,cy,w,t,a);g.restore()}
 const SC=[];for(let i=0;i<14;i++){const c=document.createElement('canvas');c.width=256;c.height=352;SC.push({c,g:c.getContext('2d')})}
 let slot=0,K=1;
 function sprite(c,t,x,foot,s,a,rot){const S=SC[slot++%SC.length];drawChar(S.g,c,t);decorate(S.g,c,t);
@@ -142,8 +143,9 @@ function wipe(d,t){const x=t-(d.t.meet-1.2);if(x<-.2||x>3)return;const a=Math.mi
 function hook(t){bg('cave',1.05+.06*t/6+pulse(t),Math.sin(t*1.3)*5,0);
  const gl=g.createRadialGradient(270,560,10,270,560,260);gl.addColorStop(0,'rgba(255,200,90,.35)');gl.addColorStop(1,'rgba(255,200,90,0)');g.fillStyle=gl;g.fillRect(0,300,K0,600);
  const wob=Math.sin(t*3)*.03,hs=1.05*(1+pulse(t));
- hagoromo(270,720-150*hs,440*hs,t,.62);
+ hagoromo(270,720-218*hs,440*hs,t,.62);
  sprite({k:'AM',ex:t<4.2?'sleep':'worried',fx:t<4.2?'zzz':'sweat'},t,270,720,hs,.95,wob);
+ hagoFront(270,720-218*hs,440*hs,t,.6,720-212*hs,720-116*hs,720-204*hs,72*hs);
  const p=eout(t/.35),sh=t<.5?0:Math.sin(t*38)*1.2;g.save();g.translate(sh,0);
  txt('ONE GODDESS',270,125,60,'#ffd34d',{align:'center',sc:p,maxw:480});txt('PLUNGED THE WORLD',270,205,54,'#fff',{align:'center',sc:p,maxw:500});
  txt('INTO DARKNESS',270,300,84,'#ff5a3c',{align:'center',sc:p,maxw:500});g.restore();
@@ -176,9 +178,9 @@ function section(d,t){const lt=t-d.a,u=lt/(d.b-d.a);let z=1.06+.12*u+pulse(t),px
  const e=exAt(d,t),gs=1.28*(.55+.45*eout(lt/.4))*(1+pulse(t)*.9);
  let gx=270,rot=0;if(d.k==='EB'){const ad=d.cue[1].t;if(t>ad&&t<ad+1.8){rot=Math.sin(t*3)*.12;gx+=Math.sin(t*1.5)*30}}
  if(d.k==='SU'&&t>d.cue[5].t&&t<d.cue[5].t+1){rot=Math.sin(t*14)*.1}
- if(d.k==='AM'){halo(gx,700-204*gs,gs,t,1-dark*.85);hagoromo(gx,700-150*gs,425*gs,t,1-dark*.9)}
+ if(d.k==='AM'){halo(gx,700-204*gs,gs,t,1-dark*.85);hagoromo(gx,700-218*gs,425*gs,t,1-dark*.9)}
  sprite({k:d.k,ex:e.ex,fx:e.fx},t,gx,700,gs,1-.5*dark,rot);
- if(d.k==='AM')hagoFront(gx,700-150*gs,425*gs,t,(1-dark*.9)*.9,700-116*gs,700-44*gs);
+ if(d.k==='AM')hagoFront(gx,700-218*gs,425*gs,t,(1-dark*.9)*.95,700-212*gs,700-116*gs,700-204*gs,72*gs);
  if(d.k==='EB')waves(t);
  if(d.k==='SU'){lightning(t,d)}
  if(d.k==='TS')wipe(d,t);
