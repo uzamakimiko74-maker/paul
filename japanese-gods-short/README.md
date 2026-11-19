@@ -10,6 +10,7 @@ Published as an artifact: https://claude.ai/artifact/43N7zrkoHdhnmu5hseyh4R
 - `tools/align.py` – places script words on the audio using its pauses (no speech recognition).
 - `tools/mix.py` – mixes light sound effects under the narration.
 - `tools/render.js` – captures frames with Playwright; encode with ffmpeg.
+- `tools/cuts.js` – prints the shot count and shot-length spread, to keep the cutting honest.
 - `tools/click-states.js` – checks the Download button in all three overlay states (start, mid-playback,
   finished), since the overlay changes between them. Serves range requests so seeking to the end works.
 - Type is Fredoka, loaded from Google Fonts by the page. Install it locally before rendering frames,
