@@ -4,6 +4,8 @@ Source for `out/japanese-gods-ranked.mp4` (93.8 s, 1080x1920).
 
 - `index.html` – self-contained canvas page (open through a local web server); plays `narration_mix.mp3`.
 - `bg/` – seven backgrounds rendered in Blender (`tools/scenes.py`, run `blender -b -P scenes.py -- <scene> <out.jpg>`).
+- `hagoromo.png` – Amaterasu's celestial mantle: a 16-frame flutter loop modelled and rendered in Blender
+  (`tools/hagoromo.py`, run `blender -b -P hagoromo.py -- "hago/f%02d.png" 16`), tiled 4x4 into one sheet.
 - `tools/align.py` – places script words on the audio using its pauses (no speech recognition).
 - `tools/mix.py` – mixes light sound effects under the narration.
 - `tools/render.js` – captures frames with Playwright; encode with ffmpeg.
