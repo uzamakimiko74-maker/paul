@@ -25,6 +25,7 @@ html='''<title>Japanese Gods Ranked</title>
   #dl:disabled{opacity:.6;cursor:default}
   #overlay{position:absolute;z-index:2;inset:0;display:flex;flex-direction:column;align-items:center;
            justify-content:center;gap:12px;background:rgba(0,0,0,.45);text-align:center;padding:20px}
+  #playBtn:disabled{opacity:.7;cursor:progress}
   #playBtn{font:700 23px var(--display);padding:.6em 1.4em;border:0;border-radius:999px;
            background:var(--paper);color:var(--ink);cursor:pointer;box-shadow:0 6px 20px rgba(0,0,0,.45)}
   #hint{font-size:14px;font-weight:600;text-shadow:0 1px 4px #000;opacity:.92}
@@ -35,7 +36,7 @@ html='''<title>Japanese Gods Ranked</title>
   <canvas id="cv"></canvas>
   <div id="top"><div id="prog"><div id="fill"></div></div><button id="dl">Download video</button></div>
   <div id="overlay">
-    <button id="playBtn">&#9654; Play with sound</button>
+    <button id="playBtn" disabled>Loading&hellip;</button>
     <div id="hint">Five Japanese gods ranked &middot; 94 seconds &middot; with narration</div>
   </div>
 </div>

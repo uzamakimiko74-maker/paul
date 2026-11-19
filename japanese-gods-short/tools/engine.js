@@ -43,10 +43,15 @@ function decorate(gs,c,t){
  gs.restore()}
 /* ===== assets ===== */
 const IMGN=['dawn','ebisu','susanoo','tsukuyomi','izanami','amaterasu','cave'],IMG={};let nLoaded=0;
-const NEED=IMGN.length+1,ready=()=>{if(++nLoaded===NEED){window.READY=true;render(window.T0||0)}};
-IMGN.forEach(n=>{const im=new Image();im.onload=ready;im.src='bg/'+n+'.jpg';IMG[n]=im});
+const NEED=IMGN.length+1;
+function setStatus(msg){const h=document.getElementById('hint');if(h)h.textContent=msg}
+function ready(){nLoaded++;const b=document.getElementById('playBtn');
+ if(nLoaded===NEED){window.READY=true;if(b){b.disabled=false;b.innerHTML='&#9654; Play with sound'}setStatus('Five Japanese gods ranked \u00b7 94 seconds \u00b7 with narration');render(window.T0||0)}
+ else if(b&&!window.LOADFAIL)b.textContent='Loading '+nLoaded+'/'+NEED+'\u2026'}
+function assetFailed(name){window.LOADFAIL=name;setStatus('Could not load '+name+'. Reload the page to try again.');const b=document.getElementById('playBtn');if(b)b.textContent='Could not load'}
+IMGN.forEach(n=>{const im=new Image();im.onload=ready;im.onerror=()=>assetFailed('bg/'+n+'.jpg');im.src='bg/'+n+'.jpg';IMG[n]=im});
 /* hagoromo: 16-frame flutter loop modelled and rendered in Blender, tiled 4x4 */
-const HAGO=new Image(),HW=746,HH=340,HN=16,HFPS=8,HWID=380;HAGO.onload=ready;HAGO.src='hagoromo.png';
+const HAGO=new Image(),HW=746,HH=340,HN=16,HFPS=8,HWID=380;HAGO.onload=ready;HAGO.onerror=()=>assetFailed('hagoromo.png');HAGO.src='hagoromo.png';
 /* the mantle is part of her rig: drawn in the sprite's own space, so it follows her
    position, scale, tilt and bob, and shows up in every shot she appears in. */
 function hagoLocal(t,s,front,f){const i=Math.floor(t*HFPS)%HN,w=HWID*s*(f||1),h=w*HH/HW;
@@ -241,24 +246,36 @@ window.render=render;window.DUR=DUR;
 /* ===== player ===== */
 cv.width=1080;cv.height=1920;
 const overlay=$('overlay'),playBtn=$('playBtn'),fillEl=$('fill'),dlBtn=$('dl');
-let playing=false;
+let playing=false,silent=false,wallStart=0,wallBase=0;
+/* the narration is the clock; if the browser will not play it, a wall clock keeps the picture moving */
+function clockT(){return silent?wallBase+(performance.now()-wallStart)/1000:narr.currentTime}
 function showOverlay(label){overlay.hidden=false;playBtn.textContent=label}
-function loop(){if(!playing)return;const t=narr.currentTime;render(t);fillEl.style.width=(100*Math.min(1,t/DUR))+'%';
- if(!narr.ended)requestAnimationFrame(loop);else{playing=false;showOverlay('\u25b6 Replay')}}
-playBtn.onclick=()=>{if(narr.ended||narr.currentTime>=DUR-.05)narr.currentTime=0;
- narr.play().catch(()=>{});overlay.hidden=true;playing=true;loop()};
+function loop(){if(!playing)return;const t=clockT();render(Math.min(t,DUR));fillEl.style.width=(100*Math.min(1,t/DUR))+'%';
+ if(t<DUR-.04&&!(!silent&&narr.ended))requestAnimationFrame(loop);else{playing=false;showOverlay('\u25b6 Replay')}}
+function goSilent(why){if(silent)return;wallBase=narr.currentTime||0;silent=true;wallStart=performance.now();setStatus('Audio could not play ('+why+'). Showing the video without sound.')}
+narr.addEventListener('error',()=>{if(playing)goSilent('file did not load');else setStatus('The narration audio did not load. The video will play without sound.')});
+playBtn.onclick=()=>{
+ if(!window.READY)return;
+ const atEnd=silent?clockT()>=DUR-.05:(narr.ended||narr.currentTime>=DUR-.05);
+ if(atEnd){narr.currentTime=0;wallBase=0}
+ overlay.hidden=true;playing=true;
+ if(silent){wallBase=atEnd?0:wallBase;wallStart=performance.now()}
+ const p=narr.play();
+ if(p&&p.catch)p.catch(err=>{goSilent(err&&err.name||'blocked');if(playing&&!silent)return});
+ loop()};
 /* the finished file is rendered in the sandbox and published beside this page; the viewer just saves it */
 const FILE='japanese-gods-ranked.mp4',LABEL='Download video';let busy=false;
-(async()=>{try{const d=await window.claude?.use?.('downloads');if(!d)dlBtn.hidden=true}catch(_){dlBtn.hidden=true}})();
+(async()=>{try{const d=await window.claude?.use?.('downloads');if(!d){dlBtn.title='Saving is not available in this view';dlBtn.disabled=true;dlBtn.textContent='Download unavailable'}}catch(_){dlBtn.disabled=true;dlBtn.textContent='Download unavailable'}})();
 dlBtn.onclick=async()=>{
  if(busy)return;busy=true;dlBtn.disabled=true;dlBtn.textContent='Preparing\u2026';let msg=LABEL;
  try{
-  if(playing){playing=false;narr.pause();showOverlay('\u25b6 Resume')}
-  const r=await fetch(FILE);if(!r.ok)throw new Error('missing');
+  if(playing){playing=false;narr.pause();wallBase=clockT();showOverlay('\u25b6 Resume')}
+  const r=await fetch(FILE);if(!r.ok)throw Object.assign(new Error('file '+r.status),{code:'fetch'});
   const blob=new Blob([await r.arrayBuffer()],{type:'video/mp4'});
   const dl=await window.claude.use('downloads');if(!dl)throw Object.assign(new Error('unavailable'),{code:'unavailable'});
   await dl.save({filename:FILE,data:blob});
- }catch(err){if(!(err&&err.code==='declined'))msg='Could not save, try again'}
- dlBtn.textContent=msg;if(msg!==LABEL)setTimeout(()=>{dlBtn.textContent=LABEL},3500);
+  msg='Saved'
+ }catch(err){if(err&&err.code==='declined')msg=LABEL;else{msg='Could not save ('+((err&&(err.code||err.message))||'error')+')';console.error(err)}}
+ dlBtn.textContent=msg;setTimeout(()=>{dlBtn.textContent=LABEL},3500);
  dlBtn.disabled=false;busy=false;
 };
