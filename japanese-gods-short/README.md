@@ -10,6 +10,8 @@ Published as an artifact: https://claude.ai/artifact/43N7zrkoHdhnmu5hseyh4R
 - `tools/align.py` – places script words on the audio using its pauses (no speech recognition).
 - `tools/mix.py` – mixes light sound effects under the narration.
 - `tools/render.js` – captures frames with Playwright; encode with ffmpeg.
+- `tools/click-states.js` – checks the Download button in all three overlay states (start, mid-playback,
+  finished), since the overlay changes between them. Serves range requests so seeking to the end works.
 - Type is Fredoka, loaded from Google Fonts by the page. Install it locally before rendering frames,
   or the captured video falls back to a different face than the published page shows.
 - `tools/engine.js` + `tools/mk.sh` – page logic and the assembler. `mk.sh` splices the character painter from the ranking-short skill's reference page, which is not included here.

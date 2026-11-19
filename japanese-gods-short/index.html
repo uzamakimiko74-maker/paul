@@ -402,16 +402,18 @@ window.render=render;window.DUR=DUR;
 cv.width=1080;cv.height=1920;
 const overlay=$('overlay'),playBtn=$('playBtn'),fillEl=$('fill'),dlBtn=$('dl');
 let playing=false;
+function showOverlay(label){overlay.hidden=false;playBtn.textContent=label}
 function loop(){if(!playing)return;const t=narr.currentTime;render(t);fillEl.style.width=(100*Math.min(1,t/DUR))+'%';
- if(!narr.ended)requestAnimationFrame(loop);else{playing=false;overlay.hidden=false;playBtn.textContent='\u25b6 Replay'}}
-playBtn.onclick=()=>{narr.currentTime=0;narr.play().catch(()=>{});overlay.hidden=true;playing=true;loop()};
+ if(!narr.ended)requestAnimationFrame(loop);else{playing=false;showOverlay('\u25b6 Replay')}}
+playBtn.onclick=()=>{if(narr.ended||narr.currentTime>=DUR-.05)narr.currentTime=0;
+ narr.play().catch(()=>{});overlay.hidden=true;playing=true;loop()};
 /* the finished file is rendered in the sandbox and published beside this page; the viewer just saves it */
 const FILE='japanese-gods-ranked.mp4',LABEL='Download video';let busy=false;
 (async()=>{try{const d=await window.claude?.use?.('downloads');if(!d)dlBtn.hidden=true}catch(_){dlBtn.hidden=true}})();
 dlBtn.onclick=async()=>{
  if(busy)return;busy=true;dlBtn.disabled=true;dlBtn.textContent='Preparing\u2026';let msg=LABEL;
  try{
-  if(playing){playing=false;narr.pause()}
+  if(playing){playing=false;narr.pause();showOverlay('\u25b6 Resume')}
   const r=await fetch(FILE);if(!r.ok)throw new Error('missing');
   const blob=new Blob([await r.arrayBuffer()],{type:'video/mp4'});
   const dl=await window.claude.use('downloads');if(!dl)throw Object.assign(new Error('unavailable'),{code:'unavailable'});
