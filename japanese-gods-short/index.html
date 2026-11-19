@@ -221,17 +221,24 @@ const IMGN=['dawn','ebisu','susanoo','tsukuyomi','izanami','amaterasu','cave'],I
 const NEED=IMGN.length+1,ready=()=>{if(++nLoaded===NEED){window.READY=true;render(window.T0||0)}};
 IMGN.forEach(n=>{const im=new Image();im.onload=ready;im.src='bg/'+n+'.jpg';IMG[n]=im});
 /* hagoromo: 16-frame flutter loop modelled and rendered in Blender, tiled 4x4 */
-const HAGO=new Image(),HW=746,HH=340,HN=16,HFPS=8;HAGO.onload=ready;HAGO.src='hagoromo.png';
-function hagoromo(cx,cy,w,t,a){if(a<=0)return;const i=Math.floor(t*HFPS)%HN,h=w*HH/HW;
- g.save();g.globalAlpha=a;g.shadowColor='rgba(30,12,48,.5)';g.shadowBlur=w*.035;
- g.drawImage(HAGO,(i%4)*HW,((i/4)|0)*HH,HW,HH,cx-w/2,cy-h/2,w,h);g.restore()}
-/* the same cloth drawn again over her, clipped to a band, so it reads as worn and not floating behind */
-function hagoFront(cx,cy,w,t,a,y0,y1,hy,hr){g.save();g.beginPath();
- g.rect(0,y0,K0,y1-y0);g.arc(cx,hy,hr,0,7);g.clip('evenodd');hagoromo(cx,cy,w,t,a);g.restore()}
+const HAGO=new Image(),HW=746,HH=340,HN=16,HFPS=8,HWID=380;HAGO.onload=ready;HAGO.src='hagoromo.png';
+/* the mantle is part of her rig: drawn in the sprite's own space, so it follows her
+   position, scale, tilt and bob, and shows up in every shot she appears in. */
+function hagoLocal(t,s,front,f){const i=Math.floor(t*HFPS)%HN,w=HWID*s*(f||1),h=w*HH/HW;
+ g.save();
+ if(front){g.beginPath();g.rect(-2000,-212*s,4000,96*s);g.arc(0,-204*s,72*s,0,7);g.clip('evenodd')}
+ g.globalAlpha*=front?.95:1;
+ g.shadowColor='rgba(30,12,48,.45)';g.shadowBlur=w*.035;
+ g.drawImage(HAGO,(i%4)*HW,((i/4)|0)*HH,HW,HH,-w/2,-218*s-h/2,w,h);g.restore()}
 const SC=[];for(let i=0;i<14;i++){const c=document.createElement('canvas');c.width=256;c.height=352;SC.push({c,g:c.getContext('2d')})}
 let slot=0,K=1;
 function sprite(c,t,x,foot,s,a,rot){const S=SC[slot++%SC.length];drawChar(S.g,c,t);decorate(S.g,c,t);
- g.save();g.globalAlpha=a===undefined?1:a;g.translate(x,foot);if(rot)g.rotate(rot);g.drawImage(S.c,-128*s,-332*s,256*s,352*s);g.restore()}
+ g.save();g.globalAlpha=a===undefined?1:a;g.translate(x,foot);if(rot)g.rotate(rot);
+ const hago=c.k==='AM'&&HAGO.complete&&c.hago!==0;
+ if(hago)hagoLocal(t,s,false,c.hs);
+ g.drawImage(S.c,-128*s,-332*s,256*s,352*s);
+ if(hago)hagoLocal(t,s,true,c.hs);
+ g.restore()}
 function bg(n,z,px,py){const im=IMG[n],w=K0*z,h=H0*z;g.drawImage(im,(K0-w)/2+px,(H0-h)/2+py,w,h)}
 function rr(x,y,w,h,r,fill,stroke,lw){g.beginPath();g.moveTo(x+r,y);g.arcTo(x+w,y,x+w,y+h,r);g.arcTo(x+w,y+h,x,y+h,r);g.arcTo(x,y+h,x,y,r);g.arcTo(x,y,x+w,y,r);g.closePath();
  if(fill){g.fillStyle=fill;g.fill()}if(stroke){g.strokeStyle=stroke;g.lineWidth=lw||4;g.stroke()}}
@@ -318,9 +325,7 @@ function wipe(d,t){const x=t-(d.t.meet-1.2);if(x<-.2||x>3)return;const a=Math.mi
 function hook(t){bg('cave',1.05+.06*t/6+pulse(t),Math.sin(t*1.3)*5,0);
  const gl=g.createRadialGradient(270,560,10,270,560,260);gl.addColorStop(0,'rgba(255,200,90,.35)');gl.addColorStop(1,'rgba(255,200,90,0)');g.fillStyle=gl;g.fillRect(0,300,K0,600);
  const wob=Math.sin(t*3)*.03,hs=1.05*(1+pulse(t));
- hagoromo(270,720-218*hs,440*hs,t,.62);
  sprite({k:'AM',ex:t<4.2?'sleep':'worried',fx:t<4.2?'zzz':'sweat'},t,270,720,hs,.95,wob);
- hagoFront(270,720-218*hs,440*hs,t,.6,720-212*hs,720-116*hs,720-204*hs,72*hs);
  const p=eout(t/.35),sh=t<.5?0:Math.sin(t*38)*1.2;g.save();g.translate(sh,0);
  txt('ONE GODDESS',270,125,60,'#ffd34d',{align:'center',sc:p,maxw:480});txt('PLUNGED THE WORLD',270,205,54,'#fff',{align:'center',sc:p,maxw:500});
  txt('INTO DARKNESS',270,300,84,'#ff5a3c',{align:'center',sc:p,maxw:500});g.restore();
@@ -328,7 +333,7 @@ function hook(t){bg('cave',1.05+.06*t/6+pulse(t),Math.sin(t*1.3)*5,0);
 const LU=[['happy','EB'],['power','SU'],['smug','TS'],['angry','IZ'],['happy','AM']];
 function lineupRow(t,t0,foot,s,fxq){for(let i=0;i<5;i++){const at=t0+i*.34,lt=t-at;if(lt<0)continue;const d=DEF[i],pop=1+.3*Math.exp(-lt*9),big=i===4?1.18:1;
  const x=62+i*104.2,bounce=fxq?Math.abs(Math.sin(t*4+i))*12*clamp01((t-fxq)/.3):0;
- sprite({k:d.k,ex:fxq&&i===4?'power':LU[i][0],fx:i===4?'spark':''},t,x,foot-bounce,s*pop*big);
+ sprite({k:d.k,ex:fxq&&i===4?'power':LU[i][0],fx:i===4?'spark':'',hs:.52},t,x,foot-bounce,s*pop*big);
  if(fxq){txt('?',x,foot-266*s*big-12-Math.sin(t*5+i)*6,54,'#ffd34d',{align:'center',a:clamp01((t-fxq)/.3)})}
  const a=clamp01(lt/.2);rr(x-50,foot+14,100,34,12,'rgba(15,10,35,.85)',d.col,3);txt('#'+d.r+' '+d.name,x,foot+37,15,'#fff',{align:'center',maxw:92,sw:0,stroke:null})}}
 function lineup(t){bg('dawn',1.04+.08*(t-T_LINE)/4+pulse(t),0,0);flash(t,T_LINE,.5);
@@ -353,9 +358,8 @@ function section(d,t){const lt=t-d.a,u=lt/(d.b-d.a);let z=1.06+.12*u+pulse(t),px
  const e=exAt(d,t),gs=1.28*(.55+.45*eout(lt/.4))*(1+pulse(t)*.9);
  let gx=270,rot=0;if(d.k==='EB'){const ad=d.cue[1].t;if(t>ad&&t<ad+1.8){rot=Math.sin(t*3)*.12;gx+=Math.sin(t*1.5)*30}}
  if(d.k==='SU'&&t>d.cue[5].t&&t<d.cue[5].t+1){rot=Math.sin(t*14)*.1}
- if(d.k==='AM'){halo(gx,700-204*gs,gs,t,1-dark*.85);hagoromo(gx,700-218*gs,425*gs,t,1-dark*.9)}
+ if(d.k==='AM')halo(gx,700-204*gs,gs,t,1-dark*.85);
  sprite({k:d.k,ex:e.ex,fx:e.fx},t,gx,700,gs,1-.5*dark,rot);
- if(d.k==='AM')hagoFront(gx,700-218*gs,425*gs,t,(1-dark*.9)*.95,700-212*gs,700-116*gs,700-204*gs,72*gs);
  if(d.k==='EB')waves(t);
  if(d.k==='SU'){lightning(t,d)}
  if(d.k==='TS')wipe(d,t);
