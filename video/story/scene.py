@@ -85,7 +85,7 @@ def upd(sc,*a):
     kf=lerp(3,-4,u) if i==5 else (-4 if i==6 else (lerp(-4,3,min(1,u/.6)) if i==7 else 3))
     run=i in(5,7) and u<(.6 if i==7 else 1)
     hero[0].location=(1.5,3*kf,1.2*(kf+1)+(abs(math.sin(t*11))*.3 if run else 0));expr(hero,HE[i])
-    pip[0].location=(-3,3*hk-1.1,hz);expr(pip,'sad' if i in(3,4,7) else 'ok')
+    pip[0].location=(-4.9,3*hk-1.1,hz);expr(pip,'sad' if i in(3,4,7) else 'ok')
     lastflip=(i==7 and idx==len(sw)-1);num.data.body='1' if lastflip else '4'
     lamp.color=(1,.1,.1,1) if i==7 else ((1,1,.9,1) if (i!=3 or int(t*4)%2==0) else (.25,.25,.25,1))
     br=1+.05*math.sin(t*3) if i>=6 else 1;door.scale=(9*br,1.2,7*br);slit.scale=(6,.2,lerp(.3,1.6,u) if i==6 else (1.6 if i==7 else .3))
@@ -97,7 +97,7 @@ def upd(sc,*a):
     for x,y,z0,o in snow:o.location=(x,y,(z0-t*5)%35-4)
 bpy.app.handlers.frame_change_pre.append(upd)
 if TEST:
-    for f in[20,110,230,420,640,900,1250,1500,1790]:
+    for f in[int(x) for x in os.environ.get('FR','20').split(',')]:
         s.frame_set(f);s.render.filepath=D+f't{f}.png';bpy.ops.render.render(write_still=True)
 else:
     s.render.image_settings.file_format='FFMPEG';s.render.ffmpeg.format='MPEG4';s.render.ffmpeg.codec='H264'

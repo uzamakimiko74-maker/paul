@@ -33,6 +33,6 @@ def ts(s):
 ev=[]
 for j,(a,b,x_) in enumerate(words):
     e=min(words[j+1][0],b+0.25) if j+1<len(words) else b+0.4
-    ev.append(f"Dialogue: 0,{ts(a)},{ts(e)},Default,,0,0,0,,{{\\pos(540,1280)}}{x_}")
+    ev.append(f"Dialogue: 0,{ts(a)},{ts(e)},Default,0,0,0,,{{\\pos(540,1280)}}{x_}")
 open(D+'cap.ass','w').write("[Script Info]\nScriptType: v4.00+\nPlayResX: 1080\nPlayResY: 1920\n\n[V4+ Styles]\nFormat: Name,Fontname,Fontsize,PrimaryColour,SecondaryColour,OutlineColour,BackColour,Bold,Italic,Underline,StrikeOut,ScaleX,ScaleY,Spacing,Angle,BorderStyle,Outline,Shadow,Alignment,MarginL,MarginR,MarginV,Encoding\nStyle: Default,DejaVu Sans,100,&H00FFFFFF,&H00FFFFFF,&H00000000,&H80000000,-1,0,0,0,100,100,0,0,1,8,2,5,40,40,0,1\n\n[Events]\nFormat: Layer,Start,End,Style,MarginL,MarginR,MarginV,Effect,Text\n"+"\n".join(ev)+"\n")
 print('total',round(total,1),'s frames',int(total*30))
