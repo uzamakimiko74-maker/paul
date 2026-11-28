@@ -1,0 +1,58 @@
+<title>The Rising Stairs</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<style>
+/* Layout: one phone-shaped player beside a short story card; stacks to one column on narrow screens */
+:root{
+  --bg:#f3f1ee; --fg:#1d2230; --muted:#5d6577; --panel:#e6e3de; --line:#cfcac2;
+  --warm:#d9772b; --cold:#5f7f78; --deep:#1f3a8a;
+  --display:"Fraunces",Georgia,serif; --body:"Inter",system-ui,sans-serif;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0e1220; --fg:#ebe9e4; --muted:#9aa3b8; --panel:#171d33; --line:#2a3250;
+  --warm:#f0913f; --cold:#8fb0a8; --deep:#6f8cf0; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0e1220; --fg:#ebe9e4; --muted:#9aa3b8; --panel:#171d33; --line:#2a3250;
+  --warm:#f0913f; --cold:#8fb0a8; --deep:#6f8cf0; color-scheme:dark}
+body{background:var(--bg);color:var(--fg);font-family:var(--body);font-size:16px;line-height:1.55;
+  padding-block:32px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.wrap{max-width:900px;margin:0 auto;display:grid;grid-template-columns:minmax(0,340px) minmax(0,1fr);gap:40px;align-items:start}
+.player{border-radius:14px;overflow:hidden;background:#000;aspect-ratio:9/16;width:100%;max-width:100%}
+video{display:block;width:100%;height:100%;object-fit:contain;background:#000}
+.info{min-width:0}
+h1{font-family:var(--display);font-weight:600;font-size:clamp(2rem,5vw,2.9rem);line-height:1.05;margin:0 0 8px;text-wrap:balance}
+.meta{color:var(--muted);font-size:.9rem;margin:0 0 24px}
+.bar{display:flex;height:8px;border-radius:4px;overflow:hidden;margin:0 0 6px}
+.bar i{flex:1}
+.bar i:nth-child(1){background:var(--warm);flex:3}.bar i:nth-child(2){background:var(--cold);flex:2}.bar i:nth-child(3){background:var(--deep);flex:3}
+.bl{display:flex;justify-content:space-between;color:var(--muted);font-size:.78rem;letter-spacing:.04em;text-transform:uppercase;margin:0 0 24px}
+p{max-width:62ch;margin:0 0 16px}
+.beats{list-style:none;margin:24px 0;padding:0;border-top:1px solid var(--line)}
+.beats li{display:grid;grid-template-columns:64px 1fr;gap:12px;padding:10px 0;border-bottom:1px solid var(--line);font-size:.95rem}
+.beats b{font-variant-numeric:tabular-nums;color:var(--muted);font-weight:500}
+.note{background:var(--panel);border-radius:10px;padding:14px 16px;color:var(--muted);font-size:.88rem}
+@media (max-width:720px){.wrap{grid-template-columns:minmax(0,1fr);gap:24px}.player{max-width:360px;margin:0 auto}}
+</style>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600&family=Inter:wght@400;500&display=swap">
+<main class="wrap">
+  <div class="player">
+    <video id="v" controls playsinline preload="metadata" src="story-web.mp4"></video>
+  </div>
+  <section class="info">
+    <h1>The Rising Stairs</h1>
+    <p class="meta">60 seconds · vertical 9:16 · narrated, captioned · made entirely in Blender</p>
+    <div class="bar" aria-hidden="true"><i></i><i></i><i></i></div>
+    <div class="bl"><span>Warm: home</span><span>Grey-green: the cold</span><span>Deep blue: the door</span></div>
+    <p>My city is a giant staircase, and every night the sea climbs one step higher. I live on step four with my little brother Pip, who paints our house number on the door so the sea knows we are still here.</p>
+    <p>Tonight the sea stopped. Then it started draining away.</p>
+    <ul class="beats">
+      <li><b>0:00</b><span>Hook: the staircase city, seen from above</span></li>
+      <li><b>0:08</b><span>World rule: the higher you live, the safer you are</span></li>
+      <li><b>0:17</b><span>Stakes: Pip and the number "4" on the door</span></li>
+      <li><b>0:30</b><span>Mystery: the sea stops, the tower lamp blinks</span></li>
+      <li><b>0:38</b><span>The sea drains; the run down to the bottom</span></li>
+      <li><b>0:48</b><span>A huge door that is breathing</span></li>
+      <li><b>0:53</b><span>Home too late: the door now says "1", the lamp is red</span></li>
+    </ul>
+    <p class="note">The narration is a free text-to-speech voice and the music is generated, so swap in a real voice and a trending sound before posting. This page plays a compressed 720×1280 copy; the full 1080×1920 render is <code>video/story/story.mp4</code> on the draft PR branch.</p>
+  </section>
+</main>
